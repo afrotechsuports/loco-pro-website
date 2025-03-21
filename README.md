@@ -1,13 +1,15 @@
-# LOCO PRO Website
+# Canva Pro Free Access Website
 
-A professional, mobile-responsive website for downloading `.txt` files, featuring a dark mode UI with gradient backgrounds and a hamburger menu.
+A hacking-styled, mobile-responsive website for downloading `.txt` files, featuring a dark background with neon green text effects, a hamburger menu, and a video thumbnail.
 
 ## Features
-1. **Downloadable `.txt` Files**: 10 dummy `.txt` files available on the landing page.
-2. **5 Pages**: Landing Page, About, Contact Us, Privacy Policy, and Form.
-3. **Mobile Compatibility**: Fully responsive design with a hamburger menu for smaller screens.
-4. **Professional UI**: Dark mode with gradient background, white and pink text/icons.
-5. **E-commerce Style**: Product-style layout with titles, descriptions, and download buttons.
-6. **Header**: "LOCO PRO" logo on the left, hamburger menu on the right.
+1. **Dynamic Downloads**: Displays all `.txt` files from the `files/` folder (limited to 4 initially, with an "Access More Files" option).
+2. **5 Pages**: Landing Page, About, Contact Us, Privacy Policy, and Form, each with added content and images.
+3. **Mobile Compatibility**: Fully responsive with a hamburger menu.
+4. **Hacking UI**: Dark theme with neon green text, flicker effects, and a terminal font.
+5. **Loading Screen**: 5-second loading effect with a spinner and "Initializing Hack..." text.
+6. **Overlay**: 7-second delay on download with a tutorial video and back button.
+7. **Video Thumbnail**: Small clickable thumbnail above downloads linking to the full YouTube video.
+8. **Header**: "Canva Pro Free Access 💾" logo on the left, hamburger menu on the right.
 
-## Directory Structuresos
+## Directory Structure
