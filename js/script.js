@@ -8,7 +8,7 @@ window.addEventListener('load', () => {
     setTimeout(() => {
         document.querySelector('.loading-screen').style.display = 'none';
         document.querySelector('.content').style.display = 'block';
-    }, 5000); // 5-second delay for initial loading screen
+    }, 5000); // 5-second delay
 });
 
 // Dynamic File Loading
@@ -36,17 +36,34 @@ function loadFiles() {
         product.innerHTML = `
             <h3>${file.name}</h3>
             <p>${file.desc}</p>
-            <a href="${file.path}" class="download-btn" data-file="${file.path}">Download 📂🍪</a>
+            <a href="${file.path}" download class="download-btn">Download 📂🍪</a>
         `;
         productList.appendChild(product);
     });
 
-    // Add event listeners to download buttons
+    // Add click event to download buttons
     document.querySelectorAll('.download-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent immediate download
-            const filePath = btn.getAttribute('data-file');
-            showOverlay(filePath);
+            e.preventDefault();
+            const href = btn.getAttribute('href');
+            const overlay = document.getElementById('overlay');
+            const tutorial = overlay.querySelector('.tutorial');
+
+            overlay.style.display = 'flex';
+            setTimeout(() => {
+                overlay.querySelector('h2').style.display = 'none';
+                overlay.querySelector('.spinner').style.display = 'none';
+                tutorial.style.display = 'block';
+                setTimeout(() => {
+                    window.open('https://www.youtube.com/watch?v=k2G_AXoAunY', '_blank');
+                    const link = document.createElement('a');
+                    link.href = href;
+                    link.download = '';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }, 1000); // Slight delay before opening video and downloading
+            }, 7000); // 7-second delay
         });
     });
 }
@@ -55,45 +72,15 @@ loadFiles();
 
 // Show More Button
 document.querySelector('.show-more').addEventListener('click', () => {
-    visibleFiles += 4;
-    if (visibleFiles > files.length) visibleFiles = files.length;
+    visibleFiles = files.length;
     loadFiles();
+    document.querySelector('.show-more').style.display = 'none';
 });
-
-// Overlay and Download Logic
-function showOverlay(filePath) {
-    const overlay = document.getElementById('overlay');
-    const tutorial = overlay.querySelector('.tutorial');
-    const spinner = overlay.querySelector('.spinner');
-    const preparingText = overlay.querySelector('h2');
-
-    // Show overlay with loading
-    overlay.style.display = 'flex';
-    preparingText.style.display = 'block';
-    spinner.style.display = 'block';
-    tutorial.style.display = 'none';
-
-    setTimeout(() => {
-        // After 3 seconds, show video
-        preparingText.style.display = 'none';
-        spinner.style.display = 'none';
-        tutorial.style.display = 'block';
-
-        setTimeout(() => {
-            // After 7 seconds total, trigger download and hide overlay
-            const link = document.createElement('a');
-            link.href = filePath;
-            link.download = '';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            overlay.style.display = 'none';
-        }, 4000); // Additional 4 seconds after video appears (3s + 4s = 7s total)
-    }, 3000); // Show loading for 3 seconds
-}
 
 // Back Button in Overlay
 document.querySelector('.back-btn').addEventListener('click', () => {
     document.getElementById('overlay').style.display = 'none';
+    document.querySelector('.overlay-content h2').style.display = 'block';
+    document.querySelector('.spinner').style.display = 'block';
+    document.querySelector('.tutorial').style.display = 'none';
 });
