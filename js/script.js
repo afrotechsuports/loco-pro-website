@@ -13,16 +13,16 @@ window.addEventListener('load', () => {
 
 // Dynamic File Loading
 const files = [
-    { name: 'File 1', path: 'files/file1.txt', desc: 'Description for File 1' },
-    { name: 'File 2', path: 'files/file2.txt', desc: 'Description for File 2' },
-    { name: 'File 3', path: 'files/file3.txt', desc: 'Description for File 3' },
-    { name: 'File 4', path: 'files/file4.txt', desc: 'Description for File 4' },
-    { name: 'File 5', path: 'files/file5.txt', desc: 'Description for File 5' },
-    { name: 'File 6', path: 'files/file6.txt', desc: 'Description for File 6' },
-    { name: 'File 7', path: 'files/file7.txt', desc: 'Description for File 7' },
-    { name: 'File 8', path: 'files/file8.txt', desc: 'Description for File 8' },
-    { name: 'File 9', path: 'files/file9.txt', desc: 'Description for File 9' },
-    { name: 'File 10', path: 'files/file10.txt', desc: 'Description for File 10' },
+    { name: 'File 1', path: 'files/file1.txt', desc: 'Access Key 1' },
+    { name: 'File 2', path: 'files/file2.txt', desc: 'Access Key 2' },
+    { name: 'File 3', path: 'files/file3.txt', desc: 'Access Key 3' },
+    { name: 'File 4', path: 'files/file4.txt', desc: 'Access Key 4' },
+    { name: 'File 5', path: 'files/file5.txt', desc: 'Access Key 5' },
+    { name: 'File 6', path: 'files/file6.txt', desc: 'Access Key 6' },
+    { name: 'File 7', path: 'files/file7.txt', desc: 'Access Key 7' },
+    { name: 'File 8', path: 'files/file8.txt', desc: 'Access Key 8' },
+    { name: 'File 9', path: 'files/file9.txt', desc: 'Access Key 9' },
+    { name: 'File 10', path: 'files/file10.txt', desc: 'Access Key 10' },
 ];
 
 const productList = document.getElementById('product-list');
