@@ -36,13 +36,60 @@ function loadFiles() {
         product.innerHTML = `
             <h3>${file.name}</h3>
             <p>${file.desc}</p>
-            <a href="${file.path}" download class="download-btn">Download 📂🍪</a>
+            <a href="${file.path}" download class="download-btn" data-file="${file.path}">Download 📂🍪</a>
         `;
         productList.appendChild(product);
+    });
+
+    // Add Download Button Event Listeners
+    document.querySelectorAll('.download-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const filePath = btn.getAttribute('data-file');
+            const overlay = document.getElementById('overlay');
+            const tutorial = overlay.querySelector('.tutorial');
+            const spinner = overlay.querySelector('.spinner');
+
+            // Show overlay with "Downloading..." message
+            overlay.style.display = 'flex';
+            spinner.style.display = 'block';
+            tutorial.style.display = 'none';
+
+            setTimeout(() => {
+                // Trigger file download
+                const link = document.createElement('a');
+                link.href = filePath;
+                link.download = '';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Show tutorial after 7 seconds
+                spinner.style.display = 'none';
+                tutorial.style.display = 'block';
+
+                // Automatically open YouTube video in new tab
+                setTimeout(() => {
+                    window.open('https://www.youtube.com/watch?v=k2G_AXoAunY&ab_channel=YonasPresents', '_blank');
+                }, 1000); // Slight delay to ensure tutorial is visible
+            }, 7000); // 7-second delay
+        });
     });
 }
 
 loadFiles();
 
 // Show More Button
-document.querySelector('.show-more')
+document.querySelector('.show-more').addEventListener('click', () => {
+    visibleFiles += 4;
+    if (visibleFiles >= files.length) {
+        visibleFiles = files.length;
+        document.querySelector('.show-more').style.display = 'none';
+    }
+    loadFiles();
+});
+
+// Back Button in Overlay
+document.querySelector('.back-btn').addEventListener('click', () => {
+    document.getElementById('overlay').style.display = 'none';
+});
