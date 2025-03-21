@@ -10,4 +10,4 @@ A professional, mobile-responsive website for downloading `.txt` files, featurin
 5. **E-commerce Style**: Product-style layout with titles, descriptions, and download buttons.
 6. **Header**: "LOCO PRO" logo on the left, hamburger menu on the right.
 
-## Directory Structure
+## Directory Structuresos
