@@ -8,7 +8,7 @@ window.addEventListener('load', () => {
     setTimeout(() => {
         document.querySelector('.loading-screen').style.display = 'none';
         document.querySelector('.content').style.display = 'block';
-    }, 5000); // 5-second delay
+    }, 5000); // 5-second delay for initial loading screen
 });
 
 // Dynamic File Loading
@@ -36,43 +36,17 @@ function loadFiles() {
         product.innerHTML = `
             <h3>${file.name}</h3>
             <p>${file.desc}</p>
-            <a href="${file.path}" download class="download-btn" data-file="${file.path}">Download 📂🍪</a>
+            <a href="${file.path}" class="download-btn" data-file="${file.path}">Download 📂🍪</a>
         `;
         productList.appendChild(product);
     });
 
-    // Add Download Button Event Listeners
+    // Add event listeners to download buttons
     document.querySelectorAll('.download-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            e.preventDefault();
+            e.preventDefault(); // Prevent immediate download
             const filePath = btn.getAttribute('data-file');
-            const overlay = document.getElementById('overlay');
-            const tutorial = overlay.querySelector('.tutorial');
-            const spinner = overlay.querySelector('.spinner');
-
-            // Show overlay with "Downloading..." message
-            overlay.style.display = 'flex';
-            spinner.style.display = 'block';
-            tutorial.style.display = 'none';
-
-            setTimeout(() => {
-                // Trigger file download
-                const link = document.createElement('a');
-                link.href = filePath;
-                link.download = '';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-
-                // Show tutorial after 7 seconds
-                spinner.style.display = 'none';
-                tutorial.style.display = 'block';
-
-                // Automatically open YouTube video in new tab
-                setTimeout(() => {
-                    window.open('https://www.youtube.com/watch?v=k2G_AXoAunY&ab_channel=YonasPresents', '_blank');
-                }, 1000); // Slight delay to ensure tutorial is visible
-            }, 7000); // 7-second delay
+            showOverlay(filePath);
         });
     });
 }
@@ -82,12 +56,42 @@ loadFiles();
 // Show More Button
 document.querySelector('.show-more').addEventListener('click', () => {
     visibleFiles += 4;
-    if (visibleFiles >= files.length) {
-        visibleFiles = files.length;
-        document.querySelector('.show-more').style.display = 'none';
-    }
+    if (visibleFiles > files.length) visibleFiles = files.length;
     loadFiles();
 });
+
+// Overlay and Download Logic
+function showOverlay(filePath) {
+    const overlay = document.getElementById('overlay');
+    const tutorial = overlay.querySelector('.tutorial');
+    const spinner = overlay.querySelector('.spinner');
+    const preparingText = overlay.querySelector('h2');
+
+    // Show overlay with loading
+    overlay.style.display = 'flex';
+    preparingText.style.display = 'block';
+    spinner.style.display = 'block';
+    tutorial.style.display = 'none';
+
+    setTimeout(() => {
+        // After 3 seconds, show video
+        preparingText.style.display = 'none';
+        spinner.style.display = 'none';
+        tutorial.style.display = 'block';
+
+        setTimeout(() => {
+            // After 7 seconds total, trigger download and hide overlay
+            const link = document.createElement('a');
+            link.href = filePath;
+            link.download = '';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            overlay.style.display = 'none';
+        }, 4000); // Additional 4 seconds after video appears (3s + 4s = 7s total)
+    }, 3000); // Show loading for 3 seconds
+}
 
 // Back Button in Overlay
 document.querySelector('.back-btn').addEventListener('click', () => {
